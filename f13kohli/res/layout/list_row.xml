@@ -1,0 +1,26 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal">
+    <Button android:id="@+id/select"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="hi"/>
+	<Button android:id="@+id/minus"
+		android:layout_alignParentRight="true"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="-" 
+		android:visibility="invisible"/>
+	<Button android:id="@+id/plus"
+		android:layout_alignParentRight="true"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="+" 
+		android:visibility="invisible"/>
+	<TextView android:id="@+id/details"
+		android:layout_width="match_parent"
+		android:layout_below="@id/plus"
+		android:layout_height="wrap_content"
+		android:visibility="gone"/>
+</RelativeLayout>
