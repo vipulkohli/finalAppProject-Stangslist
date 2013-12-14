@@ -4,6 +4,8 @@ import java.util.*;
 import java.net.*;
 import java.io.*;
 import java.lang.*;
+import android.graphics.*;
+import android.graphics.drawable.*;
 import android.view.*;       
 import android.app.*;       
 import android.os.*;
@@ -34,7 +36,6 @@ public class StartActivity extends Activity{
 		 MenuInflater in = getMenuInflater();
 		 in.inflate(R.menu.vipul, menu);
 		 return true;
-		
 	}
 	public ArrayList<String> getArrayList(String name){
 		ArrayList<String>list = new ArrayList<String>();
@@ -63,7 +64,6 @@ public class StartActivity extends Activity{
 			String [] laps = {"MacBook Air", "Dell Inspiron", "MacBook Pro", "HP Pavilion", "Samsung"};
 			strarray = laps;
 		}
-		
 		else{ 
 			String [] none = {"No results"};
 			strarray = none;
@@ -118,13 +118,24 @@ public class StartActivity extends Activity{
 	{
 		Intent newItem = getIntent();
 		String description = "Description";
+		byte [] injpegData = {};
 		if (newItem.getStringExtra("Title") != null){
 			String title = newItem.getStringExtra("Title");
 			String price = newItem.getStringExtra("Price");
+			String loc = newItem.getStringExtra("Location");
+			injpegData = newItem.getByteArrayExtra("Photo");
+			ArrayList<String>paytypes = newItem.getStringArrayListExtra("Payment");
+			if(loc.length() > 0)
+				title += "(" + loc + ")";
 			if (price.length() > 0)
 				inList.add(title + " $" + price);
 			description = newItem.getStringExtra("Description");
+			String printPay = "Seller accepts " + paytypes.toString().substring(1, paytypes.toString().length()-1);
+			printPay += " as methods of payment.";
+			if (paytypes.size() > 0)
+				description = printPay + "\n" + description;
 		}
+		final byte[] outjpegData = injpegData;
 		final String insertDesc = description;
 		final ArrayList<String> values = inList;
 		final String category = type;
@@ -150,6 +161,10 @@ public class StartActivity extends Activity{
 				minus.setVisibility(View.VISIBLE);
 				OnClickListener open = new OnClickListener(){
 					public void onClick(View v){
+						ImageView imgView = (ImageView) findViewById(R.id.image);
+						Bitmap img = BitmapFactory.decodeByteArray(outjpegData, 0, outjpegData.length);
+						Drawable d = new BitmapDrawable(img);
+						imgView.setBackground(d);
 						TextView details = (TextView) view.findViewById(R.id.details);
 						if(plus.getVisibility() == View.VISIBLE){
 							details.setVisibility(View.VISIBLE);
@@ -170,7 +185,6 @@ public class StartActivity extends Activity{
 			public View getView(int pos, View convertView, ViewGroup parent){
 				LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 				final View view = inflater.inflate(itemLayout, null);
-				
 				String topic = values.get(pos);
 				final int index = pos;
 				TextView tv =  (TextView) view.findViewById(R.id.select);

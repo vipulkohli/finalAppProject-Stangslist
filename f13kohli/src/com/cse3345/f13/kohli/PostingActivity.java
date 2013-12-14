@@ -16,8 +16,9 @@ import android.widget.AdapterView.*;
 public class PostingActivity extends Activity implements OnClickListener
 {
 	/** Called when the activity is first created. */
-	private Button openCam, mAvail, mSub, openWeb;
-	private ImageView profilePicture;
+	private Button openCam, mAvail, mSub, openWeb, mBack;
+	private TextView profilePicture;
+	private byte [] jpegData;
 	private Spinner mCatSpin;
 	private String mChosenCategory;
 	private EditText mTitle, mLocation, mPrice, mDesc;
@@ -39,27 +40,41 @@ public class PostingActivity extends Activity implements OnClickListener
 		}
 		else{
 //-----------I wrote this code below this line----------------------------------
-			byte [] jpegData = intent.getExtras().getByteArray("image");
-			openCam.setText("" + intent.getExtras().getByteArray("image").length);
+			jpegData = intent.getExtras().getByteArray("image");
 			Bitmap img = BitmapFactory.decodeByteArray(jpegData, 0, jpegData.length);
 			Drawable d = new BitmapDrawable(img);
 			profilePicture.setBackground(d);
 		}
 	}
 	@Override
-	public void onClick(View photoButton)
+	public void onClick(View inButton)
 	{
-		if (photoButton.getId() == openWeb.getId())
+		boolean isErr = false;
+		if (mTitle.getText().toString().length() == 0){
+			mTitle.setError("Required");
+			mTitle.setEms(10);
+			isErr = true;
+		}
+		if(mDesc.getText().toString().length() == 0){
+			mDesc.setActivated(true);
+			mDesc.setError("Required");
+			isErr = true;
+		}
+		if (inButton.getId() == openWeb.getId())
 			web.setVisibility(View.VISIBLE);
-		else if(photoButton.getId() == mAvail.getId())
+		else if(inButton.getId() == mAvail.getId())
 			startActivity(new Intent(this, CheckActivity.class));
-		else if(photoButton.getId() == mSub.getId()){
+		else if(inButton.getId() == mBack.getId())
+			finish();
+		else if(inButton.getId() == mSub.getId()){
 			AlertDialog.Builder al = new AlertDialog.Builder(this);
-			al
-				.setTitle("Continue?")
+			if(isErr)
+				return;
+			else
+			  al.setTitle("Continue?")
 				.setIcon(R.drawable.ornament)
-				.setMessage("Your listing is going to be submitted to your chosen category. Do you want to continue?")
-				.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+				.setMessage("Your listing is going to be submitted to your chosen category.")
+				.setPositiveButton("OK", new DialogInterface.OnClickListener(){
 					public void onClick(DialogInterface d, int x){	
 						payment = new ArrayList<String>();
 						if(mCard.isChecked())
@@ -72,16 +87,16 @@ public class PostingActivity extends Activity implements OnClickListener
 							payment.add("Cash");
 //			Toast.makeText(getApplicationContext(), payment.toString(), Toast.LENGTH_LONG).show();
 						Intent intent = new Intent(getApplicationContext(), StartActivity.class);
-						intent.putExtra("Payment", payment.toString());
+						intent.putExtra("Payment", payment);
 						intent.putExtra("Category", mChosenCategory); 
 						intent.putExtra("Title", mTitle.getText().toString());
 						intent.putExtra("Price", mPrice.getText().toString());
 						intent.putExtra("Description", mDesc.getText().toString());
-//			Toast.makeText(getApplicationContext(), intent.getStringExtra("Title"), Toast.LENGTH_LONG).show();
 						intent.putExtra("Location", mLocation.getText().toString());
+						intent.putExtra("Photo", jpegData);
 						startActivity(intent);
 				}
-			}).setNegativeButton("No", new DialogInterface.OnClickListener(){
+			}).setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
 					public void onClick(DialogInterface d, int x){
 					}
 			}).show();
@@ -92,7 +107,7 @@ public class PostingActivity extends Activity implements OnClickListener
 	
 	public void findViews(){
 		web = (WebView) findViewById(R.id.webView);
-		profilePicture = (ImageView) findViewById(R.id.photo);
+		profilePicture = (TextView) findViewById(R.id.photo);
 		mTitle = (EditText) findViewById(R.id.title);
 		mLocation = (EditText) findViewById(R.id.location);
 		mCard = (CheckBox)findViewById(R.id.card);
@@ -104,6 +119,7 @@ public class PostingActivity extends Activity implements OnClickListener
 		mPrice = (EditText) findViewById(R.id.price);
 		mCatSpin = (Spinner) findViewById(R.id.catspin);
 		mDesc = (EditText) findViewById(R.id.desc);
+		mBack = (Button) findViewById(R.id.backbutton);
 	}
 	
 	
@@ -128,9 +144,10 @@ public class PostingActivity extends Activity implements OnClickListener
 		/*Availability selection work*/		
 		mAvail = (Button) findViewById(R.id.editavail);
 		mAvail.setOnClickListener(this);
-		/*Submit button work*/
+		/*Submit/Back button work*/
 		mSub = (Button) findViewById(R.id.submitbutton);
 		mSub.setOnClickListener(this);
+		mBack.setOnClickListener(this);
 		/*Web View & Camera uploader work*/
 		openCam.setOnClickListener(this);
 		openWeb.setOnClickListener(this);		

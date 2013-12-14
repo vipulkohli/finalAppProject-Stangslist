@@ -71,6 +71,11 @@ public class CheckActivity extends Activity{
 		mSchedule = new ArrayList<String>();
 		mSchedule = cats;
 		mListView.setAdapter(getAdapter(R.layout.times, cats, "heads"));
+		
+		{
+			Toast.makeText(getApplicationContext(), mSchedule.toString(), Toast.LENGTH_LONG).show();
+			
+		}
 	}
 	public BaseAdapter getAdapter(int item, ArrayList<String>inList, String type)
 	{
@@ -112,9 +117,7 @@ public class CheckActivity extends Activity{
 							if (box.isChecked())
 								mTimes.add(box.getText().toString());
 						}
-						mSchedule.set(pos, mDays.get(pos) + ": " + mTimes.toString().substring(1, mTimes.toString().length() - 1));
-						Toast.makeText(getApplicationContext(), mSchedule.toString(), Toast.LENGTH_LONG).show();
-						
+						mSchedule.set(pos, mDays.get(pos) + ": " + mTimes.toString().substring(1, mTimes.toString().length() - 1));		
 					}
 				}
 			};

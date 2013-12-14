@@ -6,11 +6,11 @@
     <string name="developer">Vipul Kohli</string>
 
     <string name="action_settings">Settings</string>
-    <string name="page_text0">Sell an Item</string>
-    <string name="page_text1">Buy an Item</string>
+    <string name="list">List Item</string>
+    <string name="goBack">Go Back</string>
     <string name="page_text3">This is the first page!</string>
-    <string name="page_text4">This is the second page!</string>
-	<string name="hello">This is the second page!</string>
+    <string name="hello">This is the second page!</string>
+	<string name="backicons">Back to Icons</string>
     <string name="describe">Describe the item here. This is the information your buyer will see on the front page along with the information above.</string>
 	<string name="scheduleTutor">Schedule Tutoring Session</string>
 	<string name="avail">Availability</string>
