@@ -17,7 +17,6 @@ import java.util.zip.*;
  * @author Vipul Kohli
  * Click listeners, ListView
  *
- * @author savant-pan (viewPagerIndicatorView)
  * 
  */
 public class StartActivity extends Activity{
@@ -39,7 +38,36 @@ public class StartActivity extends Activity{
 	}
 	public ArrayList<String> getArrayList(String name){
 		ArrayList<String>list = new ArrayList<String>();
-		String [] strarray = {"PonyPark", "QuizardQuest","Snap2Ask"};
+		String [] strarray;
+		if (name.contains("Apps")){ 
+			String [] apps = {"PonyPark", "QuizardQuest","Snap2Ask"};
+			strarray = apps;
+		}
+		else if (name.contains("Furniture")){ 
+			String [] furn = {"Couch", "Lamp", "Bed"};
+			strarray = furn;
+		}
+		else if(name.contains("Tutors")){
+			String [] tutors = {"Algorithms $20/hr", "Calculus $15/hr", "Android $20/hr", "Web Design $30/hr"};
+			strarray = tutors;
+		}	
+		else if(name.contains("Tablets")){
+			String [] tutors = {"Apple iPad", "Asus Tablet 10.1", "Kindle Fire HD", "Nook Color"};
+			strarray = tutors;
+		}
+		else if(name.contains("Roommates")){
+			String [] roomers = {"Roommate for Apartment", "Roommate for CM", "M&M 3rd Floor", "Perkins 219"};
+			strarray = roomers;
+		}
+		else if (name.contains("Laptops")){
+			String [] laps = {"MacBook Air", "Dell Inspiron", "MacBook Pro", "HP Pavilion", "Samsung"};
+			strarray = laps;
+		}
+		
+		else{ 
+			String [] none = {"No results"};
+			strarray = none;
+		}
 		for(String x:strarray)
 		      list.add(x);
 		return list;
@@ -88,6 +116,16 @@ public class StartActivity extends Activity{
 	}
 	public BaseAdapter getAdapter(int item, ArrayList<String>inList, String type)
 	{
+		Intent newItem = getIntent();
+		String description = "Description";
+		if (newItem.getStringExtra("Title") != null){
+			String title = newItem.getStringExtra("Title");
+			String price = newItem.getStringExtra("Price");
+			if (price.length() > 0)
+				inList.add(title + " $" + price);
+			description = newItem.getStringExtra("Description");
+		}
+		final String insertDesc = description;
 		final ArrayList<String> values = inList;
 		final String category = type;
 		final int itemLayout = item;
@@ -107,14 +145,15 @@ public class StartActivity extends Activity{
 				final View view = v;
 				final Button plus = (Button) view.findViewById(R.id.plus);
 				final Button minus = (Button) view.findViewById(R.id.minus);
+				TextView itemName = (TextView) view.findViewById(R.id.select);
 				plus.setVisibility(View.VISIBLE);
 				minus.setVisibility(View.VISIBLE);
-				
 				OnClickListener open = new OnClickListener(){
 					public void onClick(View v){
 						TextView details = (TextView) view.findViewById(R.id.details);
 						if(plus.getVisibility() == View.VISIBLE){
 							details.setVisibility(View.VISIBLE);
+							details.setText(insertDesc);
 							plus.setVisibility(View.INVISIBLE);
 						}
 						else{
@@ -125,19 +164,21 @@ public class StartActivity extends Activity{
 				};
 				plus.setOnClickListener(open);
 				minus.setOnClickListener(open);
-
+				itemName.setOnClickListener(open);
 
 			}
 			public View getView(int pos, View convertView, ViewGroup parent){
 				LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 				final View view = inflater.inflate(itemLayout, null);
-				if(realItems)
-					setPlusButton(view);
+				
 				String topic = values.get(pos);
 				final int index = pos;
-				Button tv =  (Button) view.findViewById(R.id.select);
+				TextView tv =  (TextView) view.findViewById(R.id.select);
 				tv.setText(topic);
-				tv.setOnClickListener(new OnClickListener(){
+				if(realItems)
+					setPlusButton(view);
+				else
+					tv.setOnClickListener(new OnClickListener(){
 						public void onClick(View v){
 							if(category == "campus")
 							    mListView.setAdapter(getAdapter(R.layout.campus, nextList, "heads"));

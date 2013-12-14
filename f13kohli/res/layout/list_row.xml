@@ -2,9 +2,10 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="horizontal">
-    <Button android:id="@+id/select"
-		android:layout_width="wrap_content"
+    <TextView android:id="@+id/select"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:textSize="40sp"
 		android:text="hi"/>
 	<Button android:id="@+id/minus"
 		android:layout_alignParentRight="true"

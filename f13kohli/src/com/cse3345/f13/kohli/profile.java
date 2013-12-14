@@ -39,7 +39,6 @@ public class profile extends Activity implements OnClickListener
 		final WebView web = (WebView) findViewById(R.id.webView);
 		web.getSettings().setJavaScriptEnabled(true);
 		web.setWebViewClient(new WebViewClient(){
-				
 
 	//For Android 4.1
 	public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture){
@@ -49,8 +48,7 @@ public class profile extends Activity implements OnClickListener
 		i.setType("image/*");  
 		profile.this.startActivityForResult( Intent.createChooser( i, "File Chooser" ), profile.FILECHOOSER_RESULTCODE );
 
-	}
-	
+	}	
 			public boolean shouldOverrideUrlLoading(WebView view, String url){
 				web.loadUrl(url);
 				return true;

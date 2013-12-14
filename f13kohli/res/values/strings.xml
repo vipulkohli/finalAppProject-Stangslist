@@ -11,7 +11,7 @@
     <string name="page_text3">This is the first page!</string>
     <string name="page_text4">This is the second page!</string>
 	<string name="hello">This is the second page!</string>
-    <string name="describe">Describe yourself here. This is what students and parents will see.</string>
+    <string name="describe">Describe the item here. This is the information your buyer will see on the front page along with the information above.</string>
 	<string name="scheduleTutor">Schedule Tutoring Session</string>
 	<string name="avail">Availability</string>
 	<string name="edit">Edit</string>

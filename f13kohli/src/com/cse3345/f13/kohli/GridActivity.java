@@ -6,7 +6,7 @@ import android.view.*;
 import android.widget.AdapterView.*;
 import android.widget.*;
 import android.content.*;
-
+import android.view.View.*;
 public class GridActivity extends Activity
 {
     Spinner mSpin;
@@ -25,8 +25,13 @@ public class GridActivity extends Activity
 		return true;
 
 	}
-	
-	
+/*
+	@Override
+	public void onClick(View p1)
+	{
+		mSpin.setOnItemSelectedListener(spinListener);
+	}
+*/	
     @Override
     public void onCreate(Bundle savedInstanceState)
 	{
@@ -41,33 +46,31 @@ public class GridActivity extends Activity
 		mGrid= (GridView) findViewById(R.id.grid);
 		ArrayAdapter< String> ad = new ArrayAdapter < String > (this, android.R.layout.simple_spinner_item, spinOps);
 		ArrayAdapter< String> spinCampusAdapter = new ArrayAdapter < String > (this, android.R.layout.simple_spinner_item, campOps);
-		setGridAdapter(i.getIntExtra("Topic",0));
+		final String [] options = setGridAdapter(i.getIntExtra("Topic",0));
 		mSpin.setAdapter(ad);
 		mCampSpin.setAdapter(spinCampusAdapter);
-		//mSpin.setOnItemSelectedListener(spinListener);
 		Button post = (Button) findViewById(R.id.listitem);
 		post.setOnClickListener(new OnClickListener(){
 			public void onClick(View v){
-				startActivity(new Intent(getApplicationContext(), profile2.class));
+				startActivity(new Intent(getApplicationContext(), PostingActivity.class).putExtra("Options", options));
 			}
 		});
 		
     }
-	private void setGridAdapter(int topic){
+	private String [] setGridAdapter(int topic){
 		String [] saleCats = {"Apps", "Books", "Calculators", "Laptops", "Tablets", "Furniture", "Phones", "Roommates", "Tutors"};
 		String [] buildNames = {"All SMU", "All ResHalls", "Perkins", "Smith", "McElvaney", "Cockrell-McIntoch", "Greek", "Morrison-McGinnis","HTSC"};
 		String [] places = {"Airports", "Car Rental", "Housing", "Restaurants", "Gas Stations"};
-		Toast.makeText(getApplicationContext(),""+ topic, Toast.LENGTH_LONG).show();
 		switch (topic){
 		case 1:
 			mGrid.setAdapter(new GridAdapter(buildNames));
-			break;
+			return buildNames;
 		case 2:
 				mGrid.setAdapter(new GridAdapter(places));
-				break;
+				return places;
 		default:
 				mGrid.setAdapter(new GridAdapter(saleCats));
-				break;
+				return saleCats;
 		}
 	}
 	private OnItemSelectedListener spinListener = new OnItemSelectedListener(){
