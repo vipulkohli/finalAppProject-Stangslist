@@ -1,0 +1,38 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+	<TextView android:id = "@+id/searchback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search" />
+    <TextView android:id = "@+id/viewtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableBottom="@drawable/ic_launcher"
+        android:hint="Title" />
+    <TextView android:id="@+id/viewdesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Price" />
+    <Button android:id="@+id/viewdesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Schedule Appointment" />
+    <Button android:id="@+id/viewdesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bid/Offer" />
+    <Button android:id="@+id/viewdesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Buy It Now" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Description" />
+	<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View more" />
+</LinearLayout>
