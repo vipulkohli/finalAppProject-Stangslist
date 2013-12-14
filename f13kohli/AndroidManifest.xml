@@ -1,27 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mycompany.myapp4"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    package="com.lightbox.android.camera"
+    android:installLocation="auto"
+    android:versionCode="2"
+    android:versionName="1.0.1" >
+	<uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-    <uses-sdk 
-        android:minSdkVersion="8" 
-        android:targetSdkVersion="11" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
 
+    <uses-sdk android:minSdkVersion="7" 
+		android:targetSdkVersion="17" />
     <application
-        android:icon="@drawable/ic_launcher"
+        android:name="com.lightbox.android.camera.CameraApplication"
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/ornament"
         android:label="@string/app_name" >
-        <activity
+		<activity
             android:label="@string/app_name"
-            android:name=".StartActivity" >
+            android:name="com.cse3345.f13.kohli.StartActivity" >
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.Camera"
+            android:clearTaskOnLaunch="true"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape"
+            android:taskAffinity="lightbox.task.camera"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
+            <intent-filter>
+                <action android:name="android.media.action.IMAGE_CAPTURE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.media.action.STILL_IMAGE_CAMERA" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.cse3345.f13.kohli.profile">
+        </activity>
 		<activity
-			android:label="@string/app_name"
-			android:name=".GridActivity" />
+            android:name="com.cse3345.f13.kohli.GridActivity">
+        </activity>
+
+        <activity
+            android:name="com.cse3345.f13.kohli.CheckActivity">
+        </activity>
+        <activity
+            android:name="com.cse3345.f13.kohli.profile2">
+        </activity>
+        <!-- Settings -->
+        <activity
+            android:name="com.lightbox.android.camera.activities.Settings"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
     </application>
+
 </manifest>
