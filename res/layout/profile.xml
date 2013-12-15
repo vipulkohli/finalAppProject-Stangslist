@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="match_parent"
+	android:layout_width="match_parent"
+	android:textColorHint="#000">
+	<Button android:id="@+id/submitbutton"
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:layout_above="@+id/backbutton"
+		android:text="@string/submit" />
+	<Button android:id="@+id/backbutton"
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:layout_alignParentBottom="true"
+		android:text="@string/backicons" />
+	<!--Enter item description box-->
+	<EditText android:id="@+id/desc"
+		android:layout_height="match_parent"
+		android:layout_width="match_parent"
+		android:layout_margin="10dp"
+		android:layout_above="@id/submitbutton"
+		android:layout_below="@+id/photoBlock"
+		android:layout_centerInParent="true"
+		android:textSize="20dp"
+		android:lines="5"
+		android:required="true"
+		android:hint="@string/describe" />
+	
+	<LinearLayout android:id="@+id/photoBlock"
+		android:layout_height="wrap_content"
+		android:layout_width="200dp"
+		android:orientation="vertical">
+		
+		<TextView android:id="@+id/photo"
+			android:layout_width="match_parent"
+			android:layout_height="200dp"
+			android:textSize="50sp"
+			android:gravity="center"
+			android:background="#f00"
+			android:text="PHOTO"/>
+		
+    	<Button android:id="@+id/takePhoto"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" 
+			android:text="Take Photo"/>
+		<!--Choose from file button-->
+		<Button android:id="@+id/findFile"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" 
+			android:text="Choose File"/>
+		</LinearLayout>
+		<!--Web view-->
+		<WebView android:id="@+id/webView"
+			android:layout_width="200dp"
+			android:layout_height="200dp" 
+			android:visibility="invisible"/>
+		<!--Title field-->
+		<EditText android:id="@+id/title"
+			android:layout_alignParentRight="true"
+			android:layout_toRightOf="@id/photoBlock"
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:singleLine="true"
+			android:hint="@string/itemTitle"/>
+		<!--Location field-->
+		<EditText android:id="@+id/location"
+			android:layout_alignParentRight="true"
+			android:layout_below="@id/title"
+			android:layout_toRightOf="@id/photoBlock"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:singleLine="true"
+			android:hint="@string/city" />
+		<!--Price field-->
+		<EditText android:id="@+id/price"
+			android:layout_below="@id/location"
+			android:layout_toRightOf="@id/photoBlock"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:maxLength="7"
+			android:singleLine="true"
+			android:hint="Price" />
+		<!--Choose Category-->
+		<Spinner android:id="@+id/catspin"
+			android:layout_toRightOf="@id/photoBlock"
+			android:layout_below="@id/price"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" />
+		
+		
+		<TextView android:id="@+id/availhead"
+			android:layout_below="@id/catspin"
+			android:layout_toRightOf="@id/photoBlock"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/avail" />
+		
+		<Button android:id="@+id/editavail"
+			android:layout_toRightOf="@+id/availstr"
+			android:layout_below="@+id/catspin"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/edit" />
+		
+		<TextView android:id="@+id/availstr"
+			android:layout_toRightOf="@id/photoBlock"
+			android:layout_below="@id/availhead"
+			android:layout_width="wrap_content"
+			android:layout_height="50dp"
+			android:text="Monday 9AM to 5PM" />
+		
+		<TextView android:id="@+id/editpay"
+			android:layout_below="@id/availstr"
+			android:layout_toRightOf="@id/photoBlock"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/acceptpay" />
+		
+		<LinearLayout android:id="@+id/payGroup"
+			android:layout_below="@id/editpay"
+			android:layout_toRightOf ="@id/photoBlock"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" 
+			android:orientation="horizontal">
+		<!--Payment CheckBox group-->		
+			<CheckBox android:id="@+id/online"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" 
+				android:text="Online"/>
+			<CheckBox android:id="@+id/cash"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" 
+				android:text="Cash"/>
+			<CheckBox android:id="@+id/card"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" 
+				android:text="Credit Card"/>
+			<CheckBox android:id="@+id/cheque"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" 
+				android:text="Check"/>
+		</LinearLayout>
+</RelativeLayout>
